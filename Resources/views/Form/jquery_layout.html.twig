@@ -37,7 +37,7 @@
 
 {% block genemu_recaptcha_javascript %}
 {% spaceless %}
-    <script type="text/javascript" src="{{ asset(server ~ "/js/recaptcha_ajax.js") }}"></script>
+    <!-- <script type="text/javascript" src="{{ asset(server ~ "/js/recaptcha_ajax.js") }}"></script>
     <script type="text/javascript">
         if (window.addEventListener) {
             window.addEventListener('load', Recaptcha.create('{{ public_key }}', '{{ id }}_div', {{ configs|json_encode|raw }}), false);
@@ -46,7 +46,7 @@
         } else if (document.getElementById) {
             window.onload = Recaptcha.create('{{ public_key }}', '{{ id }}_div', {{ configs|json_encode|raw }});
         }
-    </script>
+    </script> -->
 {% endspaceless %}
 {% endblock genemu_recaptcha_javascript %}
 
@@ -560,7 +560,8 @@
             'uploader':  asset(configs.uploader),
             'cancelImg': asset(configs.cancelImg),
             'script':    path(configs.script),
-            'queueID':   id ~ '_queue'
+            'queueID':   id ~ '_queue',
+            'verbose': true
         })|json_encode|raw }}, {
             onComplete: function(event, queueID, fileObj, response, data) {
                 var $response = eval('(' + response + ')');
@@ -583,8 +584,8 @@
             onSelect: function(event, ID, fileObj) {
                 $nbQueue++;
             },
-            onError: function() {
-                //alert('error');
+            onError: function(event,ID,fileObj,errorObj) {
+                alert(errorObj.info);
             }
         });
 

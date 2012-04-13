@@ -13,6 +13,13 @@
 {% block genemu_recaptcha_widget %}
 {% spaceless %}
     <div id="{{ id }}_div" style="display: none;"></div>
+	<script type="text/javascript">
+	var RecaptchaOptions = {
+		theme : 'clean'
+	};
+	</script>
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k={{ public_key }}">
+	</script>
     <noscript>
         <iframe src="{{ server }}/noscript?k={{ public_key }}" width="500" height="300" frameborder="0"></iframe>
         <br />
